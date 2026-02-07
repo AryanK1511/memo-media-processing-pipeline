@@ -1,16 +1,16 @@
 {
-  "name": "media-worker",
+  "name": "memo-worker-service",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/media-worker/src",
+  "sourceRoot": "apps/memo-worker-service/src",
   "projectType": "application",
   "targets": {
     "build": {
       "executor": "nx:run-commands",
-      "outputs": ["{workspaceRoot}/dist/apps/media-worker"],
+      "outputs": ["{workspaceRoot}/dist/apps/memo-worker-service"],
       "options": {
         "command": "webpack-cli build",
         "args": ["--node-env=production"],
-        "cwd": "apps/media-worker"
+        "cwd": "apps/memo-worker-service"
       },
       "configurations": {
         "development": {
@@ -22,17 +22,17 @@
       "executor": "nx:run-commands",
       "defaultConfiguration": "development",
       "options": {
-        "command": "node dist/apps/media-worker/main.js",
+        "command": "node dist/apps/memo-worker-service/main.js",
         "cwd": "{workspaceRoot}"
       },
       "configurations": {
         "development": {
           "command": "nodemon",
-          "cwd": "apps/media-worker",
+          "cwd": "apps/memo-worker-service",
           "dependsOn": ["^build"]
         },
         "production": {
-          "command": "node dist/apps/media-worker/main.js",
+          "command": "node dist/apps/memo-worker-service/main.js",
           "env": { "NODE_ENV": "production" },
           "dependsOn": ["build"]
         }

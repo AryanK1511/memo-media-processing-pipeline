@@ -5,13 +5,13 @@ import { MediaIngestWorkerModule } from "./module/media-ingest/media-ingest-work
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     BullModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
-        connection: {
-          url: configService.get<string>("REDIS_URL"),
-        },
+        connection: { url: configService.get<string>("REDIS_URL") },
       }),
       inject: [ConfigService],
     }),
