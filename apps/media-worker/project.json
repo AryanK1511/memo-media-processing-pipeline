@@ -1,0 +1,46 @@
+{
+  "name": "media-worker",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/media-worker/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "outputs": ["{workspaceRoot}/dist/apps/media-worker"],
+      "options": {
+        "command": "webpack-cli build",
+        "args": ["--node-env=production"],
+        "cwd": "apps/media-worker"
+      },
+      "configurations": {
+        "development": {
+          "args": ["--node-env=development"]
+        }
+      }
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "defaultConfiguration": "development",
+      "options": {
+        "command": "node dist/apps/media-worker/main.js",
+        "cwd": "{workspaceRoot}"
+      },
+      "configurations": {
+        "development": {
+          "command": "nodemon",
+          "cwd": "apps/media-worker",
+          "dependsOn": ["^build"]
+        },
+        "production": {
+          "command": "node dist/apps/media-worker/main.js",
+          "env": { "NODE_ENV": "production" },
+          "dependsOn": ["build"]
+        }
+      }
+    },
+    "test": {
+      "options": { "passWithNoTests": true }
+    }
+  },
+  "tags": []
+}

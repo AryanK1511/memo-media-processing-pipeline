@@ -1,0 +1,26 @@
+const { NxAppWebpackPlugin } = require("@nx/webpack/app-plugin");
+const { join } = require("node:path");
+
+module.exports = {
+  output: {
+    path: join(__dirname, "../../dist/apps/media-worker"),
+    clean: true,
+    ...(process.env.NODE_ENV !== "production" && {
+      devtoolModuleFilenameTemplate: "[absolute-resource-path]",
+    }),
+  },
+  resolve: {},
+  plugins: [
+    new NxAppWebpackPlugin({
+      target: "node",
+      compiler: "tsc",
+      main: "./src/main.ts",
+      tsConfig: "./tsconfig.app.json",
+      optimization: false,
+      outputHashing: "none",
+      generatePackageJson: true,
+      sourceMaps: true,
+      assets: [],
+    }),
+  ],
+};
