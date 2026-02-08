@@ -7,25 +7,25 @@ import { MediaModule } from "./module/media-ingest/media.module";
 import { UtilsModule } from "./module/utils/utils.module";
 
 @Module({
-  imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
-    BullModule.forRootAsync({
-      imports: [ConfigModule],
-      useFactory: (configService: ConfigService) => ({
-        connection: { url: configService.get<string>("REDIS_URL") },
-      }),
-      inject: [ConfigService],
-    }),
-    MongooseModule.forRootAsync({
-      imports: [ConfigModule],
-      useFactory: (configService: ConfigService) => ({
-        uri: configService.get<string>("MONGODB_URI"),
-      }),
-      inject: [ConfigService],
-    }),
-    TraceModule,
-    MediaModule,
-    UtilsModule,
-  ],
+	imports: [
+		ConfigModule.forRoot({ isGlobal: true }),
+		BullModule.forRootAsync({
+			imports: [ConfigModule],
+			useFactory: (configService: ConfigService) => ({
+				connection: { url: configService.get<string>("REDIS_URL") },
+			}),
+			inject: [ConfigService],
+		}),
+		MongooseModule.forRootAsync({
+			imports: [ConfigModule],
+			useFactory: (configService: ConfigService) => ({
+				uri: configService.get<string>("MONGODB_URI"),
+			}),
+			inject: [ConfigService],
+		}),
+		TraceModule,
+		MediaModule,
+		UtilsModule,
+	],
 })
 export class AppModule {}

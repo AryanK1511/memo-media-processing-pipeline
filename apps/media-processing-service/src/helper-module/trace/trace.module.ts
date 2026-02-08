@@ -7,7 +7,7 @@ import { TraceInterceptor } from "./trace.interceptor";
 @Module({
 	imports: [ConfigModule],
 	providers: [
-		LoggerTrace,		
+		LoggerTrace,
 		{
 			provide: APP_INTERCEPTOR,
 			useClass: TraceInterceptor,

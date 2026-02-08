@@ -6,14 +6,14 @@ import { CreateMediaDto } from "../dto/media.dto";
 
 @Controller("api/v1/media")
 export class MediaController {
-  constructor(
-    @InjectQueue("media-ingest") private readonly mediaIngestQueue: Queue
-  ) {}
+	constructor(
+		@InjectQueue("media-ingest") private readonly mediaIngestQueue: Queue,
+	) {}
 
-  @Post("ingest")
-  @HttpCode(HttpStatus.OK)
-  async ingest(@Body() body: CreateMediaDto) {
-    const job = await this.mediaIngestQueue.add("test-job", body);
-    return makeSuccessResponse({ jobId: job.id });
-  }
+	@Post("ingest")
+	@HttpCode(HttpStatus.OK)
+	async ingest(@Body() body: CreateMediaDto) {
+		const job = await this.mediaIngestQueue.add("test-job", body);
+		return makeSuccessResponse({ jobId: job.id });
+	}
 }
